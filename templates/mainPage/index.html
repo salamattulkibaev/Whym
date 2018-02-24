@@ -1,75 +1,22 @@
+{% extends "mainPage/layout/layout.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Why'm - жоғалған заттарды іздеу</title>
-	<link rel="stylesheet" href="{% static 'css/style.css' %}">
-	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-</head>
-<body>
-	<div class="main-wrapper">
-		<div class="header-wrapper">
-			<header id="header">
-				<div class="logo">
-					<a href="index.html"><i id="lll" class="fab fa-pied-piper-pp fa-3x"></i></a>
-				</div>
-				<form class="searching" action="#" method="get">
-					<input type="search" name="search" placeholder="Searching...">
-					<input type="submit" name="submit" value="найти">
-				</form>
-				<section class="header-buttons">
-					<a href="#" id="addPost"><i class="fas fa-plus-circle fa-lg"></i></a>
-					<a href="#" id="aboutUs"><i class="fab fa-slideshare fa-lg"></i></a>
-					<a href="#" id="recalls"><i class="fas fa-comment-alt fa-lg"></i></a>
-					<a href="" id="userAuth"><i class="fas fa-user fa-lg"></i></a>
-				</section>
-			</header>
-		</div>
-		<div class="content-wrapper">
-			<div class="main-layouts">
-				<main class="main">
-					<div class="posts">
-						<div class="post-item">
-							<h3>Salem Alem</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, maxime animi tempora ullam nobis in excepturi. Cumque, recusandae blanditiis. Minus eos voluptas laudantium fuga sed pariatur maiores ad, ea dicta facilis non. Maxime, repellat, unde. Quidem ipsam ipsa maiores, nulla cum, molestias, accusantium qui error omnis iusto blanditiis. Itaque aut perferendis voluptatum asperiores harum eum eveniet earum assumenda, blanditiis doloremque laudantium necessitatibus laboriosam cum soluta aperiam, ipsam recusandae. Obcaecati animi provident dicta, consectetur! Modi molestiae natus accusantium, est quisquam incidunt, totam atque culpa assumenda recusandae commodi iusto qui tempore ex animi eum unde sint ab necessitatibus repudiandae, aliquid sunt? Neque ex similique, nemo placeat distinctio ipsum labore ducimus soluta voluptates, commodi voluptatum harum, nesciunt sequi architecto! In nesciunt illo autem tempora perspiciatis consequatur, consequuntur recusandae alias earum voluptatem quibusdam debitis molestias? Voluptatum molestias voluptatibus rem, in natus laborum totam, animi consequatur quaerat voluptate fugit quis pariatur suscipit soluta. Doloribus pariatur sed adipisci harum velit nostrum laudantium fugit delectus deleniti ipsam corporis labore ea error, rem laborum eligendi eos consequatur. Est modi omnis dolore provident magnam soluta, iure hic, ducimus dolorum ab, cumque amet ullam tempora suscipit voluptas similique! Quibusdam dolores ut perspiciatis rem voluptates iste commodi voluptate placeat ipsa neque!</p>
-							<img src="{% static 'media/img/cq5dam.web.1200.675.jpeg' %}" alt="" >
-						</div>
-						<div class="post-item">
-							<h3>Salem Alem</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, maxime animi tempora ullam nobis in excepturi. Cumque, recusandae blanditiis. Minus eos voluptas laudantium fuga sed pariatur maiores ad, ea dicta facilis non. Maxime, repellat, unde. Quidem ipsam ipsa maiores, nulla cum, molestias, accusantium qui error omnis iusto blanditiis. Itaque aut perferendis voluptatum asperiores harum eum eveniet earum assumenda, blanditiis doloremque laudantium necessitatibus laboriosam cum soluta aperiam, ipsam recusandae. Obcaecati animi provident dicta, consectetur! Modi molestiae natus accusantium, est quisquam incidunt, totam atque culpa assumenda recusandae commodi iusto qui tempore ex animi eum unde sint ab necessitatibus repudiandae, aliquid sunt? Neque ex similique, nemo placeat distinctio ipsum labore ducimus soluta voluptates, commodi voluptatum harum, nesciunt sequi architecto! In nesciunt illo autem tempora perspiciatis consequatur, consequuntur recusandae alias earum voluptatem quibusdam debitis molestias? Voluptatum molestias voluptatibus rem, in natus laborum totam, animi consequatur quaerat voluptate fugit quis pariatur suscipit soluta. Doloribus pariatur sed adipisci harum velit nostrum laudantium fugit delectus deleniti ipsam corporis labore ea error, rem laborum eligendi eos consequatur. Est modi omnis dolore provident magnam soluta, iure hic, ducimus dolorum ab, cumque amet ullam tempora suscipit voluptas similique! Quibusdam dolores ut perspiciatis rem voluptates iste commodi voluptate placeat ipsa neque!</p>
-							<img src="{% static 'media/img/cq5dam.web.1200.675.jpeg' %}" alt="" >
-						</div>
-						<div class="post-item">
-							<h3>Salem Alem</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, maxime animi tempora ullam nobis in excepturi. Cumque, recusandae blanditiis. Minus eos voluptas laudantium fuga sed pariatur maiores ad, ea dicta facilis non. Maxime, repellat, unde. Quidem ipsam ipsa maiores, nulla cum, molestias, accusantium qui error omnis iusto blanditiis. Itaque aut perferendis voluptatum asperiores harum eum eveniet earum assumenda, blanditiis doloremque laudantium necessitatibus laboriosam cum soluta aperiam, ipsam recusandae. Obcaecati animi provident dicta, consectetur! Modi molestiae natus accusantium, est quisquam incidunt, totam atque culpa assumenda recusandae commodi iusto qui tempore ex animi eum unde sint ab necessitatibus repudiandae, aliquid sunt? Neque ex similique, nemo placeat distinctio ipsum labore ducimus soluta voluptates, commodi voluptatum harum, nesciunt sequi architecto! In nesciunt illo autem tempora perspiciatis consequatur, consequuntur recusandae alias earum voluptatem quibusdam debitis molestias? Voluptatum molestias voluptatibus rem, in natus laborum totam, animi consequatur quaerat voluptate fugit quis pariatur suscipit soluta. Doloribus pariatur sed adipisci harum velit nostrum laudantium fugit delectus deleniti ipsam corporis labore ea error, rem laborum eligendi eos consequatur. Est modi omnis dolore provident magnam soluta, iure hic, ducimus dolorum ab, cumque amet ullam tempora suscipit voluptas similique! Quibusdam dolores ut perspiciatis rem voluptates iste commodi voluptate placeat ipsa neque!</p>
-							<img src="{% static 'media/img/cq5dam.web.1200.675.jpeg' %}" alt="" >
-						</div>
-						<div class="post-item">
-							<h3>Salem Alem</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, maxime animi tempora ullam nobis in excepturi. Cumque, recusandae blanditiis. Minus eos voluptas laudantium fuga sed pariatur maiores ad, ea dicta facilis non. Maxime, repellat, unde. Quidem ipsam ipsa maiores, nulla cum, molestias, accusantium qui error omnis iusto blanditiis. Itaque aut perferendis voluptatum asperiores harum eum eveniet earum assumenda, blanditiis doloremque laudantium necessitatibus laboriosam cum soluta aperiam, ipsam recusandae. Obcaecati animi provident dicta, consectetur! Modi molestiae natus accusantium, est quisquam incidunt, totam atque culpa assumenda recusandae commodi iusto qui tempore ex animi eum unde sint ab necessitatibus repudiandae, aliquid sunt? Neque ex similique, nemo placeat distinctio ipsum labore ducimus soluta voluptates, commodi voluptatum harum, nesciunt sequi architecto! In nesciunt illo autem tempora perspiciatis consequatur, consequuntur recusandae alias earum voluptatem quibusdam debitis molestias? Voluptatum molestias voluptatibus rem, in natus laborum totam, animi consequatur quaerat voluptate fugit quis pariatur suscipit soluta. Doloribus pariatur sed adipisci harum velit nostrum laudantium fugit delectus deleniti ipsam corporis labore ea error, rem laborum eligendi eos consequatur. Est modi omnis dolore provident magnam soluta, iure hic, ducimus dolorum ab, cumque amet ullam tempora suscipit voluptas similique! Quibusdam dolores ut perspiciatis rem voluptates iste commodi voluptate placeat ipsa neque!</p>
-							<img src="{% static 'media/img/cq5dam.web.1200.675.jpeg' %}" alt="" >
-						</div>
-						<div class="post-item">
-							<h3>Salem Alem</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, maxime animi tempora ullam nobis in excepturi. Cumque, recusandae blanditiis. Minus eos voluptas laudantium fuga sed pariatur maiores ad, ea dicta facilis non. Maxime, repellat, unde. Quidem ipsam ipsa maiores, nulla cum, molestias, accusantium qui error omnis iusto blanditiis. Itaque aut perferendis voluptatum asperiores harum eum eveniet earum assumenda, blanditiis doloremque laudantium necessitatibus laboriosam cum soluta aperiam, ipsam recusandae. Obcaecati animi provident dicta, consectetur! Modi molestiae natus accusantium, est quisquam incidunt, totam atque culpa assumenda recusandae commodi iusto qui tempore ex animi eum unde sint ab necessitatibus repudiandae, aliquid sunt? Neque ex similique, nemo placeat distinctio ipsum labore ducimus soluta voluptates, commodi voluptatum harum, nesciunt sequi architecto! In nesciunt illo autem tempora perspiciatis consequatur, consequuntur recusandae alias earum voluptatem quibusdam debitis molestias? Voluptatum molestias voluptatibus rem, in natus laborum totam, animi consequatur quaerat voluptate fugit quis pariatur suscipit soluta. Doloribus pariatur sed adipisci harum velit nostrum laudantium fugit delectus deleniti ipsam corporis labore ea error, rem laborum eligendi eos consequatur. Est modi omnis dolore provident magnam soluta, iure hic, ducimus dolorum ab, cumque amet ullam tempora suscipit voluptas similique! Quibusdam dolores ut perspiciatis rem voluptates iste commodi voluptate placeat ipsa neque!</p>
-							<img src="{% static 'media/img/cq5dam.web.1200.675.jpeg' %}" alt="" >
-						</div>
-					</div>
-				</main>
-
-				<aside class="left">
-					<button class="btnGoToUp" id='scroll-up'><i></i></button>
-					
-				</aside>
-				<aside class="right">
-					
-				</aside>
-			</div>
-		</div>
-	
-	</div>
-	<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-	<script src="{% static 'js/main.js' %}"></script>
-</body>
-</html>
+{% block title %}
+    Why'm - поиск потерянных вещей
+{% endblock %}
+{% block links %}
+    <link rel="stylesheet" href="{% static "css/content.css" %}">
+{% endblock %}
+{% block content %}
+    <div class="post">
+        <h3>Example post</h3>
+        <h5>Description</h5>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Aspernatur consectetur, corporis dignissimos eos minus modi necessitatibus nisi qui quos.
+            Autem enim ex harum, id impedit inventore modi provident quam quibusdam voluptates.
+            Amet at culpa dolore eos et fugit, incidunt ipsum minus nemo nostrum rerum sit voluptates!
+            Atque magnam similique veniam.
+        </p>
+        <img src="{% static "media/img/example-slide-1.jpg" %}" alt="" width="100%">
+    </div>
+{% endblock %}

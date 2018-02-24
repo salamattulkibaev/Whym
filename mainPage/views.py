@@ -6,3 +6,6 @@ def welcome(request):
 
 def entrance(request):
     return render(request, 'mainPage/pages/entrance.html', locals())
+
+def signup(request):
+    return render(request, 'mainPage/pages/register.html', locals())

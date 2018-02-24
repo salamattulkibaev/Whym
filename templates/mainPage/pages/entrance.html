@@ -1,62 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Entrance</title>
-	<link rel="stylesheet" href="../style.css">
-	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-</head>
-<body>
-	<div class="main-wrapper">
-		<div class="header-wrapper">
-			<header id="header">
-				<div class="logo">
-					<a href="../index.html"><i id="lll" class="fab fa-pied-piper-pp fa-3x"></i></a>
-				</div>
-				<form class="searching" action="#" method="get">
-					<input type="search" name="search" placeholder="Searching...">
-					<input type="submit" name="submit" value="найти">
-				</form>
-				<section class="header-buttons">
-					<a href="#" id="addPost"><i class="fas fa-plus-circle fa-lg"></i></a>
-					<a href="#" id="aboutUs"><i class="fab fa-slideshare fa-lg"></i></a>
-					<a href="#" id="recalls"><i class="fas fa-comment-alt fa-lg"></i></a>
-					<a href="#" id="userAuth"><i class="fas fa-user fa-lg"></i></a>
-				</section>
-			</header>
-		</div>
-		<div class="content-wrapper">
-			<div class="main-layouts">
-				<main class="main">
-					
-					<div class="entrance">
-						<form action="#" method="post">
-							 <legend>Войти в аккаунт</legend>
-							<input type="phone" placeholder="Мобильный телефон" name="phone" required> 
-							<input type="password" placeholder="Пароль" name="password" required>
-							<input type="submit" name="submit" value="Войти">
-						</form>
-						<div class="links">
-							<a href="#">Забыли пароль?</a>
-							<a href="#">Зарегистрироваться</a>
-						</div>
-					</div>
-					
-				</main>
-
-				<aside class="left">
-					<button class="btnGoToUp" id='scroll-up'><i></i></button>
-					
-				</aside>
-				<aside class="right">
-					
-				</aside>
-			</div>
-		</div>
-	
-	</div>
-	<script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<script src="../main.js"></script>
-	<script>document.write('<script src="http://' + (location.host || '${1:localhost}').split(':')[0] + ':${2:35729}/livereload.js?snipver=1"></' + 'script>')</script>
-</body>
-</html>
+{% extends "mainPage/layout/layout.html" %}
+{% load static %}
+{% block title %}
+    Вход
+{% endblock %}
+{% block links %}
+    <link rel="stylesheet" href="{%static "css/entrance.css" %}">
+{% endblock %}
+{% block content %}
+    <div class="entrance">
+        <form action="#" method="post">
+            <legend>Войти в аккаунт</legend>
+            <input type="tel" placeholder="Мобильный номер" name="phone" required>
+            <input type="password" placeholder="Пароль" name="password" required>
+            <input type="submit" name="submit" value="Войти">
+        </form>
+        <div class="links">
+            <a href="#">Забыли пароль?</a>
+            <a href="signup">Зарегистрироваться</a>
+        </div>
+    </div>
+{% endblock %}

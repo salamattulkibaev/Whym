@@ -27,7 +27,7 @@ class City(models.Model):
         verbose_name = 'City'
         verbose_name_plural = 'Cities'
 
-# Category Model
+# Model Category
 class Category(models.Model):
     name = models.CharField(max_length=45)
 
@@ -39,7 +39,7 @@ class Category(models.Model):
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
-# Status Model
+# Model Status
 class Status(models.Model):
     name = models.CharField(max_length=45)
 
@@ -51,3 +51,4 @@ class Status(models.Model):
         verbose_name = 'Status'
         verbose_name_plural = 'Statuses'
 
+# class User(models.Model) :
