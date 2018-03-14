@@ -8,7 +8,7 @@ class Region(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
-        return ' %s %s' % (self.id, self.name)
+        return ' %s' % (self.name)
 
     class Meta:
         db_table = 'region'
@@ -21,7 +21,7 @@ class City(models.Model):
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
 
     def __str__(self):
-        return ' %s %s %s' % (self.id, self.name, self.region)
+        return ' %s' % (self.name)
 
     class Meta:
         db_table = 'city'
@@ -33,7 +33,7 @@ class Category(models.Model):
     name = models.CharField(max_length=45)
 
     def __str__(self):
-        return ' %s %s' % (self.id, self.name)
+        return '%s' % (self.name)
 
     class Meta:
         db_table = 'category'
@@ -45,7 +45,7 @@ class Status(models.Model):
     name = models.CharField(max_length=45)
 
     def __str__(self):
-        return ' %s %s' % (self.id, self.name)
+        return '%s' % (self.name)
 
     class Meta:
         db_table = 'status'
@@ -161,3 +161,65 @@ class User(AbstractBaseUser):
     def is_active(self):
         "Is the user active?"
         return self.active
+
+class Recall(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField(verbose_name="Напишите отзыв")
+    created_at = models.DateTimeField(verbose_name="Дата создания", auto_now_add=True)
+
+    def __str__(self):
+        return '%s' % (self.text)
+
+    class Meta:
+        db_table = "recall"
+        verbose_name = "Recall"
+        verbose_name_plural = "Recalls"
+
+class Message(models.Model):
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Кому", related_name="to_user")
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="От кого", related_name="from_user")
+    text = models.TextField(verbose_name="Текст сообщения")
+    created_at = models.DateTimeField(verbose_name="Дата создания", auto_now_add=True)
+
+    def __str__(self):
+        return '%s' % (self.text)
+
+    class Meta:
+        db_table = "message"
+        verbose_name = "Message"
+        verbose_name_plural = "Messages"
+
+
+class Post(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
+    title = models.CharField(verbose_name="Заголовок", max_length=100)
+    description = models.TextField(verbose_name="Описание")
+    content = models.TextField(verbose_name="Файлы")
+    category = models.ForeignKey(Category,on_delete = models.CASCADE , verbose_name="Категория")
+    city = models.ForeignKey(City,on_delete=models.SET_NULL, verbose_name="Город", null=True)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name="Статус")
+    created_at = models.DateTimeField(verbose_name="Время создания", auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name="Время обновления", auto_now=True)
+
+    def __str__(self):
+        return '%s' % (self.title)
+
+    class Meta:
+        db_table = "post"
+        verbose_name = "Post"
+        verbose_name_plural = "Posts"
+
+class Comment(models.Model):
+    text = models.TextField(verbose_name="Комментарий")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
+    to_post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name="Объявление")
+    created_at = models.DateTimeField(verbose_name="Время создания", auto_now_add=True)
+    # Может быть поле to_comment
+
+    def __str__(self):
+        return '%s' % (self.text)
+
+    class Meta:
+        db_table = "comment"
+        verbose_name = "Comment"
+        verbose_name_plural = "Comments"
