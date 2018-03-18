@@ -12,23 +12,24 @@
 		<header class="header">
 			<div class="elements">
 				<a class="logo" href="/"><i class="fas fa-cogs fa-3x"></i></a>
-				<a href="entrance" class="entrance">
+				<a href="{% url 'login' %}" class="entrance">
 					<i class="fas fa-user fa-lg"></i>
 				</a>	
 			</div>
 		</header>
 		<main class="main">
-			<div class="register">
+			<div class="register" >
                 <ul class="bars" type="none">
                     <li><i class="fas fa-phone-square fa-lg"></i></li>
                     <li><i class="far fa-check-circle fa-lg"></i></li>
                     <li><i class="far fa-address-card fa-lg"></i></li>
                     <li><i class="fas fa-key fa-lg"></i></li>
                 </ul>
-				<form action="#" method="post">
+				<form action="{% url 'register' %}" method="post" >
+                    {% csrf_token %}
 					<legend>Регистрация</legend>
-					<input type="tel" placeholder="Мобильный номер" required >
-					<button type="submit">Отправить</button>
+					<input name="phone" type="tel" placeholder="Мобильный номер" required >
+					<button type="submit">Продолжить</button>
 				</form>
 			</div>
 		</main>

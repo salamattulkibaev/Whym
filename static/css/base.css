@@ -16,14 +16,14 @@ html,body {
 	display: grid;
 	grid-template-areas: "left main right"
 						 "footer footer footer";
-	grid-template-columns: 1fr 5fr 1fr;
-	grid-template-rows: 4fr 50px;
+	grid-template-columns: 1fr 7fr 1fr;
+	grid-template-rows: 1fr 6vh;
 }
 .header {
 	position: fixed;
 	width: 100%;
 	background: #1A9796;
-	height: 60px;
+	height: 8vh;
 	display: flex;
 	justify-content: center;
 	z-index: 99;

@@ -1,5 +1,6 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -142,6 +143,9 @@ class User(AbstractBaseUser):
         # Simplest possible answer: Yes, always
         return True
 
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={"id": self.id})
+
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
@@ -194,15 +198,18 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
     title = models.CharField(verbose_name="Заголовок", max_length=100)
     description = models.TextField(verbose_name="Описание")
-    content = models.TextField(verbose_name="Файлы")
+    content = models.ImageField(verbose_name="Фото", max_length=255)
     category = models.ForeignKey(Category,on_delete = models.CASCADE , verbose_name="Категория")
     city = models.ForeignKey(City,on_delete=models.SET_NULL, verbose_name="Город", null=True)
-    status = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name="Статус")
+    status = models.ForeignKey(Status, default = 1, on_delete=models.CASCADE, verbose_name="Статус")
     created_at = models.DateTimeField(verbose_name="Время создания", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="Время обновления", auto_now=True)
 
     def __str__(self):
         return '%s' % (self.title)
+
+    def get_absolute_url(self):
+        return reversed('detail', kwargs={"id": self.id})
 
     class Meta:
         db_table = "post"

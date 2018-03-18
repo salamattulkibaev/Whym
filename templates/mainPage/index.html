@@ -1,4 +1,4 @@
-{% extends "mainPage/layout/layout.html" %}
+{% extends "mainPage/layout/base.html" %}
 {% load static %}
 {% block title %}
     Why'm - поиск потерянных вещей
@@ -7,16 +7,13 @@
     <link rel="stylesheet" href="{% static "css/content.css" %}">
 {% endblock %}
 {% block content %}
-    <div class="post">
-        <h3>Example post</h3>
-        <h5>Description</h5>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Aspernatur consectetur, corporis dignissimos eos minus modi necessitatibus nisi qui quos.
-            Autem enim ex harum, id impedit inventore modi provident quam quibusdam voluptates.
-            Amet at culpa dolore eos et fugit, incidunt ipsum minus nemo nostrum rerum sit voluptates!
-            Atque magnam similique veniam.
-        </p>
-        <img src="{% static "media/img/example-slide-1.jpg" %}" alt="" width="100%">
+    <div class="posts">
+        {% for user in users %}
+{#            {% url 'detail' id=user.id %}#}
+            <a class="post" href="{{ user.get_absolute_url }}" >
+                <p>{{ user.username }}</p>
+                <img src="{% static "media/img/example-slide-1.jpg" %}" alt="" width="100%">
+            </a>
+        {% endfor %}
     </div>
 {% endblock %}

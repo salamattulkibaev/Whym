@@ -1,3 +1,9 @@
+@media screen and (max-height: 778px){
+	.logo > *{
+		font-size: 18px;
+	}
+}
+
 @media screen and (max-width: 992px) {
 	
 	.search > button {

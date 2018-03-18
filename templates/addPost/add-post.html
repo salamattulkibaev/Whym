@@ -1,0 +1,13 @@
+{% extends "mainPage/layout/base.html" %}
+{% load static %}
+{% block title %}
+   Post
+{% endblock %}
+{% block links %}
+{#    <link rel="stylesheet" href="{% static "css/content.css" %}">#}
+{% endblock %}
+{% block content %}
+    <form action="" method="POST">
+        {{ form.as_p }}
+    </form>
+{% endblock %}
