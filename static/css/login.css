@@ -24,6 +24,9 @@
 	line-height: 3rem;
 	color: #2f2D2e;
 }
+.entrance > form > label {
+	display: none;
+}
 
 .entrance > form > input{
 	font-size: 1.1rem;

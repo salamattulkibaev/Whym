@@ -8,16 +8,21 @@
 {% endblock %}
 {% block content %}
     <div class="entrance">
+{#        {% if request.method == 'GET' %}#}
         <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
             <legend>Войти в аккаунт</legend>
-            <input type="tel" placeholder="Мобильный номер" name="phone" required>
-            <input type="password" placeholder="Пароль" name="password" required>
+            {{ form.phone }}
+            {{ form.password }}
             <input type="submit" name="submit" value="Войти">
         </form>
         <div class="links">
             <a href="#">Забыли пароль?</a>
             <a href="{% url 'register' %}">Зарегистрироваться</a>
         </div>
+{#        {% endif %}#}
     </div>
+    <script>
+
+    </script>
 {% endblock %}

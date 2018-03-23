@@ -1,10 +1,10 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.urls import reverse
+from Whym import settings
+from django.db.models.signals import  pre_save
+from django.utils.text import slugify
 
-# Create your models here.
-
-# Model Region
 class Region(models.Model):
     name = models.CharField(max_length=100)
 
@@ -16,7 +16,6 @@ class Region(models.Model):
         verbose_name = 'Region'
         verbose_name_plural = 'Regions'
 
-# Model City
 class City(models.Model):
     name = models.CharField(max_length=100)
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
@@ -29,7 +28,6 @@ class City(models.Model):
         verbose_name = 'City'
         verbose_name_plural = 'Cities'
 
-# Model Category
 class Category(models.Model):
     name = models.CharField(max_length=45)
 
@@ -41,7 +39,6 @@ class Category(models.Model):
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
-# Model Status
 class Status(models.Model):
     name = models.CharField(max_length=45)
 
@@ -54,63 +51,55 @@ class Status(models.Model):
         verbose_name_plural = 'Statuses'
 
 class UserManager(BaseUserManager):
+    def create_user(self, username, phone, password=None):
+        """ Creates and saves a User with the given email and password."""
 
-    def create_user(self, username, phone , password=None, is_active = True, is_staff = False, is_admin = False):
-        """
-        Creates and saves a User with the given username, phone and password.
-        """
         if not username:
-            raise ValueError('Users must have the username')
-
+            raise ValueError('Users must have an unique name')
         if not phone:
             raise ValueError('Users must have a phone number')
 
-        if not password:
-            raise ValueError('Users must have a password')
-
-        user_obj = self.model(
-            username = username,
-            phone = phone,
+        user = self.model(
+            username=username,
+            phone=phone,
         )
-
-        user_obj.set_password(password)
-        user_obj.active = is_active
-        user_obj.staff = is_staff
-        user_obj.admin = is_admin
-        user_obj.save(using = self._db)
-        return user_obj
-
-    def create_staffuser(self, username, phone, password):
-        """
-        Creates and saves a staff user with the given username, phone and password.
-        """
-        user = self.create_user(
-            username,
-            phone,
-            password = password,
-            is_staff=True,
-        )
-        return user
-
-    def create_superuser(self, username, phone, password):
-        """
-        Creates and saves a superuser the given username, phone and password.
-        """
-        user = self.create_user(
-            username,
-            phone,
-            password = password,
-            is_staff=True,
-            is_admin=True,
-        )
+        user.set_password(password)
+        user.save(using = self._db)
         return user
 
 
-# class User(models.Model) :
+    def create_staffuser(self, username, phone,  password):
+        """
+        Creates and saves a staff user with the given email and password.
+        """
+        user = self.create_user(
+            username=username,
+            phone=phone,
+            password=password,
+        )
+        user.staff = True
+        user.save(using=self._db)
+        return user
+
+
+    def create_superuser(self, username, phone,  password):
+        """
+        Creates and saves a superuser with the given email and password.
+        """
+        user = self.create_user(
+            username=username,
+            phone=phone,
+            password=password,
+        )
+        user.staff = True
+        user.admin = True
+        user.save(using=self._db)
+        return user
+
+
 class User(AbstractBaseUser):
-
-    username = models.CharField(verbose_name="Username", max_length=100,unique=True)
-    phone = models.CharField(verbose_name="Мобильный номер", max_length=12,unique=True)
+    username = models.CharField(verbose_name="Имя пользователья", max_length=100,unique=True,)
+    phone = models.CharField(verbose_name="Мобильный номер", max_length=12, unique=True)
     verification_code = models.DecimalField(verbose_name="Код подтверждения номера",max_digits=4,decimal_places=0, null=True)
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)  # a admin user; non super-user
@@ -124,7 +113,6 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['phone'] # Email & Password are required by default.
-
     objects = UserManager()
 
     def get_full_name(self):
@@ -135,7 +123,7 @@ class User(AbstractBaseUser):
         # The user is identified by their email address
         return self.username
 
-    def __str__(self):  # __unicode__ on Python 2
+    def __str__(self):
         return self.username
 
     def has_perm(self, perm, obj=None):
@@ -143,12 +131,8 @@ class User(AbstractBaseUser):
         # Simplest possible answer: Yes, always
         return True
 
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={"id": self.id})
-
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
     @property
@@ -167,7 +151,7 @@ class User(AbstractBaseUser):
         return self.active
 
 class Recall(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField(verbose_name="Напишите отзыв")
     created_at = models.DateTimeField(verbose_name="Дата создания", auto_now_add=True)
 
@@ -180,8 +164,8 @@ class Recall(models.Model):
         verbose_name_plural = "Recalls"
 
 class Message(models.Model):
-    to_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Кому", related_name="to_user")
-    from_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="От кого", related_name="from_user")
+    to_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Кому", related_name="to_user")
+    from_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="От кого", related_name="from_user")
     text = models.TextField(verbose_name="Текст сообщения")
     created_at = models.DateTimeField(verbose_name="Дата создания", auto_now_add=True)
 
@@ -193,12 +177,22 @@ class Message(models.Model):
         verbose_name = "Message"
         verbose_name_plural = "Messages"
 
+def upload_location(instance, filename):
+    return "%s/%s" % (instance.id, filename)
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_DEFAULT, verbose_name="Автор", default=1)
     title = models.CharField(verbose_name="Заголовок", max_length=100)
+    slug = models.SlugField(unique = True)
     description = models.TextField(verbose_name="Описание")
-    content = models.ImageField(verbose_name="Фото", max_length=255)
+    image = models.ImageField(
+        verbose_name = "Фото",
+        upload_to = upload_location,
+        height_field = 'height_field',
+        width_field = 'width_field',
+        blank=True)
+    height_field = models.IntegerField(verbose_name="Высота", default=0)
+    width_field = models.IntegerField(verbose_name="Ширина", default=0)
     category = models.ForeignKey(Category,on_delete = models.CASCADE , verbose_name="Категория")
     city = models.ForeignKey(City,on_delete=models.SET_NULL, verbose_name="Город", null=True)
     status = models.ForeignKey(Status, default = 1, on_delete=models.CASCADE, verbose_name="Статус")
@@ -209,16 +203,17 @@ class Post(models.Model):
         return '%s' % (self.title)
 
     def get_absolute_url(self):
-        return reversed('detail', kwargs={"id": self.id})
+        return reverse('detail', kwargs={"slug": self.slug})
 
     class Meta:
         db_table = "post"
         verbose_name = "Post"
         verbose_name_plural = "Posts"
+        ordering = ['-created_at', '-updated_at']
 
 class Comment(models.Model):
     text = models.TextField(verbose_name="Комментарий")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Автор")
     to_post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name="Объявление")
     created_at = models.DateTimeField(verbose_name="Время создания", auto_now_add=True)
     # Может быть поле to_comment
@@ -230,3 +225,20 @@ class Comment(models.Model):
         db_table = "comment"
         verbose_name = "Comment"
         verbose_name_plural = "Comments"
+
+def create_slug(instance, new_slug=None):
+    slug = slugify(instance.title)
+    if new_slug is not None:
+        slug = new_slug
+    qs = Post.objects.filter(slug=slug).order_by("-id")
+    exists = qs.exists()
+    if exists:
+        new_slug = "%s-%s" %(slug, qs.first().id)
+        return create_slug(instance, new_slug=new_slug)
+    return slug
+
+def pre_save_post_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = create_slug(instance)
+
+pre_save.connect(pre_save_post_receiver, sender=Post)

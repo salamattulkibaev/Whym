@@ -49,26 +49,29 @@ body {
 	background: #efecec;
 	display: flex;
 	justify-content: center;
-	-ms-align-items: center;
-	align-items: flex-start;
-	padding-top: 5%;
+	align-content: center;
+	align-items: center;
+	position: relative;
 }
 .register {
-	min-width: 50%;
-	height: 70%;
+	margin: 0;
+	padding: 0;
 	display: flex;
-	-ms-align-items: flex-start;
-	align-items: flex-start;
-	justify-content: center;
-    flex-wrap: nowrap;
-	border: 1px solid red;
+	justify-content: space-around;
+	width: 40%;
+	position: absolute;
+	top: 15vh;
+	margin-left: -40px;
+
 }
 .register form {
+
+	float: right;
     box-shadow: 0 2px 30px 0 rgba(9, 9, 9, 0.27);
     box-sizing: border-box;
     padding: 40px;
     border-radius: 3px;
-    min-width: 50%;
+	margin-left: 20px;
 }
 .register form legend {
 	font-size: 1.8rem;
@@ -78,6 +81,7 @@ body {
 .register form input {
     border: .7px solid #999;
     margin-bottom: 10px;
+	margin-top: 10px;
 }
 .register form input, button {
 	padding: 10px;
@@ -98,16 +102,12 @@ body {
 .register form button:hover {
 	background: #396cd3;
 }
-.bars {
-	margin-right: 80px;
-	height: 40%;
+.bars{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	padding-top: 3%;
 }
 .bars > li {
-
 	color: #959799;
 }
 
@@ -149,4 +149,21 @@ body {
 }
 .socials > a:nth-child(3):hover {
 	color: #536ca5;
+}
+
+@media screen and (max-width: 992px) {
+	.register{
+		width: 65%;
+	}
+}
+@media screen and (max-width: 614px) {
+	.register{
+		width: 80%;
+	}
+}
+@media screen and (max-width: 500px) {
+	.register{
+		width: 90%;
+	}
+
 }

@@ -82,7 +82,9 @@ html,body {
 .logo > * {
 	text-decoration: none;
 	color: #fff;
+
 }
+
 #menu-icon{
 	display: none;
 }
@@ -165,8 +167,7 @@ tbody a:hover{
 	border-left: 0.31px solid rgba(3,3,3,.122);;
 	padding: 0 10px;
 	width: 60%;
-	display: flex;
-	justify-content: center;
+	display: block;
 }
 
 

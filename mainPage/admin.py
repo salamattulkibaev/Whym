@@ -52,11 +52,12 @@ class MessageAdmin(admin.ModelAdmin):
 
 class PostAdmin(admin.ModelAdmin):
     search_fields = ['user', 'title']
-    list_display = ['id', 'user', 'title', 'description']
+    list_display = ['id', 'user', 'title','updated_at', 'status']
     list_filter = ['city']
 
     class Meta:
         model = Post
+
 
 class CommentAdmin(admin.ModelAdmin):
     search_fields = ['author']
@@ -65,7 +66,6 @@ class CommentAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Comment
-
 
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
@@ -76,22 +76,22 @@ class UserAdmin(BaseUserAdmin):
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
     list_display = ('username', 'phone', 'admin', 'staff', 'active')
-    list_filter = ('admin', 'staff', 'active')
+    list_filter = ('admin', 'active')
     fieldsets = (
         (None, {'fields': ('username', 'phone', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'birth_date', 'email', 'full_address', )}),
-        ('Permissions', {'fields': ('admin', 'staff', 'active')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'birth_date', 'email', 'full_address',)}),
+        ('Permissions', {'fields': ('admin', 'active')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'phone', 'password1', 'password2', 'staff')}
+            'fields': ('username', 'phone', 'password1', 'password2')}
         ),
     )
-    search_fields = ('username', 'phone', 'email', 'first_name', 'last_name','staff')
-    ordering = ('username', 'phone',)
+    search_fields = ('username', 'phone')
+    ordering = ('username',)
     filter_horizontal = ()
 
 

@@ -8,12 +8,34 @@
 {% endblock %}
 {% block content %}
     <div class="posts">
-        {% for user in users %}
-{#            {% url 'detail' id=user.id %}#}
-            <a class="post" href="{{ user.get_absolute_url }}" >
-                <p>{{ user.username }}</p>
-                <img src="{% static "media/img/example-slide-1.jpg" %}" alt="" width="100%">
+        {% for post in post_list %}
+            <a class="post" href="{{ post.get_absolute_url }}" >
+                <h3>{{ post.user }}</h3>
+                <b><i>{{ post.title }}</i></b>
+                <p>{{ post.description }}</p>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="" width="100%">
+                {% else %}
+                    <img src="{% static "/media_cdn/default/example-slide-1.jpg" %}" alt="" width="100%">
+                {% endif %}
             </a>
         {% endfor %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if post_list.has_previous %}
+                    <a href="?{{ page_request_var }}=1">&laquo;</a>
+                    <a href="?{{ page_request_var }}={{ post_list.previous_page_number }}">&lt;</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ post_list.number }} из {{ post_list.paginator.num_pages }}.
+                </span>
+
+                {% if post_list.has_next %}
+                    <a href="?{{ page_request_var }}={{ post_list.next_page_number }}">&gt;</a>
+                    <a href="?{{ page_request_var }}={{ post_list.paginator.num_pages }}">&raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 {% endblock %}
