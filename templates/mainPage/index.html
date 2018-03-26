@@ -6,13 +6,21 @@
 {% block links %}
     <link rel="stylesheet" href="{% static "css/content.css" %}">
 {% endblock %}
+{% if query != ""%}
+    {% block qval %}
+       value = {{query}}
+    {% endblock %}
+{% endif %}
 {% block content %}
     <div class="posts">
         {% for post in post_list %}
-            <a class="post" href="{{ post.get_absolute_url }}" >
+            <a class="post" href="{{ post.get_absolute_url }}" style="text-decoration: none;">
                 <h3>{{ post.user }}</h3>
                 <b><i>{{ post.title }}</i></b>
-                <p>{{ post.description }}</p>
+                {% if admin == True %}
+                    <i style="color: red">{{ post.status }}</i>
+                {% endif %}
+                <p>{{ post.description|safe|truncatechars:80 }}</p>
                 {% if post.image %}
                     <img src="{{ post.image.url }}" alt="" width="100%">
                 {% else %}
@@ -23,8 +31,8 @@
         <div class="pagination">
             <span class="step-links">
                 {% if post_list.has_previous %}
-                    <a href="?{{ page_request_var }}=1">&laquo;</a>
-                    <a href="?{{ page_request_var }}={{ post_list.previous_page_number }}">&lt;</a>
+                    <a href="?{{ page_request_var }}=1{% if query %}&q={{ query }}{% endif %}">&laquo;</a>
+                    <a href="?{{ page_request_var }}={{ post_list.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">&lt;</a>
                 {% endif %}
 
                 <span class="current">
@@ -32,10 +40,13 @@
                 </span>
 
                 {% if post_list.has_next %}
-                    <a href="?{{ page_request_var }}={{ post_list.next_page_number }}">&gt;</a>
-                    <a href="?{{ page_request_var }}={{ post_list.paginator.num_pages }}">&raquo;</a>
+                    <a href="?{{ page_request_var }}={{ post_list.next_page_number }}{% if query %}&q={{ query }}{% endif %}">&gt;</a>
+                    <a href="?{{ page_request_var }}={{ post_list.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}">&raquo;</a>
                 {% endif %}
             </span>
         </div>
     </div>
+{% endblock %}
+{% block jsFiles %}
+    <script src="{% static "js/goToUp.js" %}"></script>
 {% endblock %}

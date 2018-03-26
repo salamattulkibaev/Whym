@@ -22,13 +22,19 @@
                 <a href="#"><i id="menu-icon" class="fas fa-bars fa-2x"></i></a>
                 <a href="/"><i id="logo-icon" class="fas fa-cogs fa-3x"></i></a>
 			</div>
-			<form action="#" method="get" class="search">
-				<input type="search" placeholder="Искать">
+			<form action="{% url 'welcome' %}" method="get" class="search">
+				<input type="search" name="q" placeholder="Искать" {% block qval%} {% endblock %}>
 				<button type="submit">Найти</button>
 			</form>
 			<div class="profile">
                 <a href=""><i class="fas fa-filter fa-md"></i></a>
-                <a href="{% url 'login' %}"><i class="fas fa-user fa-lg"></i></a>
+               {% if not request.user.is_authenticated %}
+                     <a href="{% url 'login' %}"><i class="fas fa-user fa-lg"></i></a>
+                {% else %}
+                     <span id="userTool">
+                         <i class="fas fa-user fa-lg"></i>
+                     </span>
+                {% endif %}
 			</div>
 		</div>
 	</header>
@@ -47,7 +53,7 @@
 					</tbody>
 					<tbody>
 						<tr>
-							<td><i class="fas fa-comment-alt fa-lg"></td>
+                            <td><i class="fas fa-comment-alt fa-lg"></i></td>
 							<td><a href="#">Отзывы</a></td>
 						</tr>
 					</tbody>
@@ -77,9 +83,9 @@
 			</div>
 		</footer>
 	</div>
-	<script src="{% static "js/jquery-3.3.1.min.js" %}"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
-	<script src="{% static "js/layout.js" %}"></script>
+	<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
+    {% block jsFiles %}
+
+    {% endblock %}
 </body>
 </html>

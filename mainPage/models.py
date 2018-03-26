@@ -4,6 +4,7 @@ from django.urls import reverse
 from Whym import settings
 from django.db.models.signals import  pre_save
 from django.utils.text import slugify
+from django.utils import timezone
 
 class Region(models.Model):
     name = models.CharField(max_length=100)
@@ -177,6 +178,10 @@ class Message(models.Model):
         verbose_name = "Message"
         verbose_name_plural = "Messages"
 
+class PostManager(models.Manager):
+    def active(self):
+        return super(PostManager, self).filter(status=2).filter(updated_at__lte=timezone.now())
+
 def upload_location(instance, filename):
     return "%s/%s" % (instance.id, filename)
 
@@ -199,6 +204,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(verbose_name="Время создания", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="Время обновления", auto_now=True)
 
+    objects = PostManager()
+
     def __str__(self):
         return '%s' % (self.title)
 
@@ -209,7 +216,7 @@ class Post(models.Model):
         db_table = "post"
         verbose_name = "Post"
         verbose_name_plural = "Posts"
-        ordering = ['-created_at', '-updated_at']
+        ordering = ['-updated_at']
 
 class Comment(models.Model):
     text = models.TextField(verbose_name="Комментарий")

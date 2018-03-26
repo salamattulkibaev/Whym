@@ -18,11 +18,12 @@ html,body {
 						 "footer footer footer";
 	grid-template-columns: 1fr 7fr 1fr;
 	grid-template-rows: 1fr 6vh;
+	padding-top: 8vh;
 }
 .header {
 	position: fixed;
 	width: 100%;
-	background: #1A9796;
+	background: #1a9995; /*20aa76;*/
 	height: 8vh;
 	display: flex;
 	justify-content: center;
@@ -30,14 +31,13 @@ html,body {
 	/*box-shadow: 0 2px 7px #666;*/
 }
 .left {
-	padding-top: 60px;
+	display: block;
 	grid-area: left;
-
 }
 .btnGoToUp{
 	height: 100vh;
 	background: rgba(201, 201, 201, .2);
-	width: 7%;
+	width: 10%;
 	display: none;
 	position: fixed;
 	z-index: 4;
@@ -59,7 +59,6 @@ html,body {
 }
 
 .right {
-	padding-top: 60px;
 	grid-area: right;
 }
 .footer{
@@ -67,29 +66,31 @@ html,body {
 }
 
 .nav{
-	height: 100%;
 	width: 80%;
 	display: grid;
 	grid-template-columns: minmax(60px, 130px) minmax(250px, 600px) minmax(60px,130px);
+	grid-template-rows: 8vh;
 	justify-content: space-between;
 }
 .logo {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
+	text-align: center;
 }
 .logo > * {
 	text-decoration: none;
 	color: #fff;
-
 }
 
 #menu-icon{
 	display: none;
 }
-.logo > *:hover{
-	color: #fcd292;
+#logo-icon{
+	max-height: 48px;
+}
+.logo > *:hover, .profile a:hover > i, #userTool:hover > i {
+	color: #fdaa95;
 }
 .search{
 	display: flex;
@@ -126,16 +127,23 @@ html,body {
 	-ms-align-items: center;
 	align-items: center;
 	justify-content: space-around;
-
 }
-.profile i{
+.profile a, #userTool{
 	color: #fff;
+	cursor: pointer;
+    width: 50%;
+    height: 100%;
+    text-align: center;
 }
-.profile  i:hover{
-	color: #fcd292;
+.profile a:first-child{
+    border-right: 0.03px solid #c7c7c7;
+}
+.profile a > i, #userTool > i{
+    color: #fff;
+    position: relative;
+    top: 25%;
 }
 .main {
-	padding-top: 60px;
 	display: flex;
 	justify-content: flex-start;	
 }
@@ -155,11 +163,15 @@ html,body {
 	text-decoration: none;
 	color: #4a4a4a;
 }
+.navbar i {
+    color: #4a4a4a;
+}
 tbody td{
 	cursor: pointer;
 }
 tbody a:hover{
 	color: #477ff0;
+	/*color: #009963;*/
 }
 
 .content {

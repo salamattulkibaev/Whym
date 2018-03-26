@@ -6,7 +6,11 @@ from django.contrib.auth import authenticate, login , logout, get_user_model
 UserModel = get_user_model()
 
 class LoginForm(forms.Form):
-    phone = forms.CharField(max_length=12, widget=forms.TextInput(attrs={'placeholder': 'Мобильный номер'}))
+    phone = forms.CharField(max_length=12,
+                            widget=forms.TextInput(attrs={
+                                'type': 'tel',
+                                'placeholder': 'Мобильный номер',
+                                }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Пароль'}))
 
 class RegisterForm(forms.ModelForm):

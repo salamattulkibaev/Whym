@@ -7,13 +7,19 @@
 {#    <link rel="stylesheet" href="{% static "css/content.css" %}">#}
 {% endblock %}
 {% block content %}
-    <h4>Salem <i>{{ instance.user }}</i></h4><br>
-    <p>{{ instance.description }}</p>
+    <h4>{{ instance.title }}</h4>
+    {% if admin == True %}
+        <a href="{{ instance.get_absolute_url }}edit"><h3>Редактировать</h3></a>
+    {% endif %}
+    <p>{{ instance.description|safe|linebreaks}}</p>
     <p>
         {% if instance.image %}
             <img src="{{ instance.image.url }}" alt="" width="100%">
         {% else %}
-            <img src="{% static "media/../../static/media_cdn/default/../../static/media_cdn/example-slide-1.jpg" %}" alt="" width="100%">
+            <img src="{% static "media_cdn/example-slide-1.jpg" %}" alt="" width="100%">
         {% endif %}
     </p>
+{% endblock %}
+{% block jsFiles %}
+    <script src="{% static "js/goToUp.js" %}"></script>
 {% endblock %}

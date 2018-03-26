@@ -3,19 +3,39 @@ from mainPage.models import *
 from django.views.generic import CreateView, FormView
 from mainPage.forms import RegisterForm, LoginForm
 from django.http import HttpResponseRedirect, Http404 ,HttpResponse
+from django.db.models import Q
 from django.utils.http import is_safe_url
+from django.utils import timezone
 from django.contrib.auth import authenticate, login , logout, get_user_model
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def welcome(request):
-    posts_list = Post.objects.filter(status = 2)
-    paginator = Paginator(posts_list, 2)  # Show 25 contacts per page
+    posts_list = Post.objects.active()
+    admin = False
+    if request.user.is_authenticated:
+        if request.user.is_staff or request.user.is_admin:
+            posts_list = Post.objects.all()
+            admin = True
+    query = request.GET.get("q")
+    if query:
+        posts_list = posts_list.filter(
+            Q(title__icontains=query)|
+            Q(description__icontains=query) |
+            Q(user__username__icontains=query) |
+            Q(user__first_name__icontains=query) |
+            Q(user__last_name__icontains=query)
+        )
+    else:
+        query = ""
+    paginator = Paginator(posts_list, 4)  # Show 25 contacts per page
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
     posts = paginator.get_page(page)
     context = {
         'post_list': posts,
         'page_request_var': page_request_var,
+        'admin': admin,
+        'query': query,
     }
     return render(request, 'mainPage/index.html', context)
 

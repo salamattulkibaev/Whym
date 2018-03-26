@@ -21,3 +21,6 @@
     align-items: flex-start;
     flex-wrap: wrap;
 }
+.pagination{
+    margin: 3vh 0;
+}
