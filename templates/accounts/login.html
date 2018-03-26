@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+    Вход
+{% endblock %}
+{% block links %}
+    <link rel="stylesheet" href="{%static "css/login.css" %}">
+{% endblock %}
+{% block content %}
+    <div class="entrance">
+{#        {% if request.method == 'GET' %}#}
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <legend>Войти в аккаунт</legend>
+            {{ form.phone }}
+            {{ form.password }}
+            <input type="submit" name="submit" value="Войти">
+        </form>
+        <div class="links">
+            <a href="#">Забыли пароль?</a>
+            <a href="{% url 'register' %}">Зарегистрироваться</a>
+        </div>
+{#        {% endif %}#}
+    </div>
+
+{% endblock %}
+{% block jsFiles %}
+    <script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#id_phone").mask("+7(999) 999-99-99");
+            $("#id_phone").keydown(function(e){
+                if((e.which >=48 && e.which <=57)  // цифры
+                || (e.which >=96 && e.which <=105)  // num lock
+                || e.which==8 // backspace
+                || (e.which >=37 && e.which <=40) // стрелки
+               || e.which==46) // delete
+            {
+                return true;
+            } else {
+                return false;
+            }
+            });
+        });
+    </script>
+{% endblock %}

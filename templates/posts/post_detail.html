@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+   Detail
+{% endblock %}
+{% block links %}
+{#    <link rel="stylesheet" href="{% static "css/content.css" %}">#}
+{% endblock %}
+{% block content %}
+    <h4>{{ instance.title }}</h4>
+    {% if admin == True %}
+        <a href="{{ instance.get_absolute_url }}edit"><h3>Редактировать</h3></a>
+    {% endif %}
+    <p>{{ instance.description|safe|linebreaks}}</p>
+    <p>
+        {% if instance.image %}
+            <img src="{{ instance.image.url }}" alt="" width="100%">
+        {% else %}
+            <img src="{% static "media_cdn/example-slide-1.jpg" %}" alt="" width="100%">
+        {% endif %}
+    </p>
+{% endblock %}
+{% block jsFiles %}
+    <script src="{% static "js/goToUp.js" %}"></script>
+{% endblock %}

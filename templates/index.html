@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+    Why'm - поиск потерянных вещей
+{% endblock %}
+{% block links %}
+    <link rel="stylesheet" href="{% static "css/content.css" %}">
+{% endblock %}
+{% if query != ""%}
+    {% block qval %}
+       value = {{query}}
+    {% endblock %}
+{% endif %}
+{% block content %}
+    <div class="posts">
+        {% for post in post_list %}
+            <a class="post" href="{{ post.get_absolute_url }}" style="text-decoration: none;">
+                <h3>{{ post.user }}</h3>
+                <b><i>{{ post.title }}</i></b>
+                {% if admin == True %}
+                    <i style="color: red">{{ post.status }}</i>
+                {% endif %}
+                <p>{{ post.description|safe|truncatechars:80 }}</p>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="" width="100%">
+                {% else %}
+                    <img src="{% static "/media_cdn/default/example-slide-1.jpg" %}" alt="" width="100%">
+                {% endif %}
+            </a>
+        {% endfor %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if post_list.has_previous %}
+                    <a href="?{{ page_request_var }}=1{% if query %}&q={{ query }}{% endif %}">&laquo;</a>
+                    <a href="?{{ page_request_var }}={{ post_list.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">&lt;</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ post_list.number }} из {{ post_list.paginator.num_pages }}.
+                </span>
+
+                {% if post_list.has_next %}
+                    <a href="?{{ page_request_var }}={{ post_list.next_page_number }}{% if query %}&q={{ query }}{% endif %}">&gt;</a>
+                    <a href="?{{ page_request_var }}={{ post_list.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}">&raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}
+{% block jsFiles %}
+    <script src="{% static "js/goToUp.js" %}"></script>
+{% endblock %}

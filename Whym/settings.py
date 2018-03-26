@@ -37,11 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainPage',
-    'addPost',
+    'accounts',
+    'posts',
+    'locations',
+    'comments',
+    'recalls',
+    'messages',
+
 ]
 
-AUTH_USER_MODEL = 'mainPage.User'
+AUTH_USER_MODEL = 'accounts.User'
 # ACCOUNT_SIGNUP_FORM_CLASS = 'mainPage.forms.RegisterForm'
 
 MIDDLEWARE = [
