@@ -7,17 +7,20 @@ from django.contrib import messages
 def add_post(request):
     form = PostForm(request.POST or None, request.FILES or None)
     if not request.user.is_authenticated:
-        msg =  "Сначало войдите в аккаунт!"
-        return render(request, 'posts/add-post.html', {'msg': msg})
+        msg1 = "Для добавления объявлений"
+        msg2 = "зарегистрируйтесь"
+        msg3 = "войдите на сайт"
+
+        return render(request, 'posts/add-post.html', {'msg': {"msg1": msg1, "msg2": msg2, "msg3": msg3}})
     if form.is_valid():
         instance = form.save(commit=False)
         instance.user = request.user
         instance.save()
-        # messages.success(request, "Объявление добавлено успешно!")
+        # letters.success(request, "Объявление добавлено успешно!")
         return HttpResponseRedirect(instance.get_absolute_url())
     else:
         pass
-        # messages.error(request, "Объяление не добавлено!")
+        # letters.error(request, "Объяление не добавлено!")
     context = {
         "form": form,
     }

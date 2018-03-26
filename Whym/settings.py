@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'locations',
     'comments',
     'recalls',
-    'messages',
+    'letters',
 
 ]
 
@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'Whym.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'mydb.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'my_db.sqlite3'),
     }
 }
 

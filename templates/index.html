@@ -28,6 +28,7 @@
                 {% endif %}
             </a>
         {% endfor %}
+    {% if post_list %}
         <div class="pagination">
             <span class="step-links">
                 {% if post_list.has_previous %}
@@ -45,6 +46,7 @@
                 {% endif %}
             </span>
         </div>
+    {% endif %}
     </div>
 {% endblock %}
 {% block jsFiles %}

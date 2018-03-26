@@ -1,7 +1,7 @@
 from django.db import models
 from Whym import settings
 
-class Message(models.Model):
+class Letter(models.Model):
     to_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Кому", related_name="to_user")
     from_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="От кого", related_name="from_user")
     text = models.TextField(verbose_name="Текст сообщения")
@@ -11,6 +11,6 @@ class Message(models.Model):
         return '%s' % (self.text)
 
     class Meta:
-        db_table = "message"
-        verbose_name = "Message"
-        verbose_name_plural = "Messages"
+        db_table = "letter"
+        verbose_name = "Letter"
+        verbose_name_plural = "Letters"

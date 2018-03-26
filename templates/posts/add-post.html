@@ -8,8 +8,7 @@
 {% endblock %}
 {% block content %}
     {% if msg %}
-        <p>{{ msg }}</p>
-
+        <p style="text-align: center">{{ msg.msg1 }} <a href="{% url 'register' %}">{{ msg.msg2 }}</a> или <a href="{% url 'login' %}">{{ msg.msg3 }}</a>.</p>
     {% else %}
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}

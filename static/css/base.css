@@ -12,7 +12,7 @@ html,body {
 .main-wrap {
 	margin: 0;
 	width: 100%;
-	min-height: 100vh;
+	min-height: 92vh;
 	display: grid;
 	grid-template-areas: "left main right"
 						 "footer footer footer";
