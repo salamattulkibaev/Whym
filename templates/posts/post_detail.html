@@ -14,11 +14,23 @@
     <p>{{ instance.description|safe|linebreaks}}</p>
     <p>
         {% if instance.image %}
-            <img src="{{ instance.image.url }}" alt="" width="100%">
+            <img src="{{ instance.image.url }}" alt="фото" width="100%">
         {% else %}
-            <img src="{% static "media_cdn/example-slide-1.jpg" %}" alt="" width="100%">
+            <img src="{% static "media_cdn/default/example-slide-1.jpg" %}" alt="" width="100%">
         {% endif %}
     </p>
+
+        {% for comment in comments %}
+            <dl>
+                <dt><b>{{ comment.author }}</b></dt>
+                    <dd>{{ comment.text }}</dd>
+                    <dd><small>{{ comment.created_at|timesince}}</small></dd>
+            </dl>
+            {{ comment.content_object }}
+            <hr>
+
+        {% endfor %}
+
 {% endblock %}
 {% block jsFiles %}
     <script src="{% static "js/goToUp.js" %}"></script>

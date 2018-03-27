@@ -2,7 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .forms import PostForm
 from .models import Post
+from comments.models import Comment
 from django.contrib import messages
+from django.contrib.contenttypes.models import ContentType
 
 def add_post(request):
     form = PostForm(request.POST or None, request.FILES or None)
@@ -10,17 +12,17 @@ def add_post(request):
         msg1 = "Для добавления объявлений"
         msg2 = "зарегистрируйтесь"
         msg3 = "войдите на сайт"
-
         return render(request, 'posts/add-post.html', {'msg': {"msg1": msg1, "msg2": msg2, "msg3": msg3}})
+
     if form.is_valid():
         instance = form.save(commit=False)
         instance.user = request.user
         instance.save()
-        # letters.success(request, "Объявление добавлено успешно!")
+        # messages.success(request, "Объявление добавлено успешно!")
         return HttpResponseRedirect(instance.get_absolute_url())
     else:
         pass
-        # letters.error(request, "Объяление не добавлено!")
+        # messages.error(request, "Объяление не добавлено!")
     context = {
         "form": form,
     }
@@ -32,9 +34,14 @@ def post_detail(request, slug=None):
         if request.user.is_staff or request.user.is_admin:
             admin = True
     instance = get_object_or_404(Post, slug = slug)
+    content_type = ContentType.objects.get_for_model(Post)
+    object_id = instance.id
+    comments = Comment.objects.filter(content_type=content_type, object_id = object_id)
     context = {
         'instance': instance,
-        'admin': admin
+        'admin': admin,
+        'comments': comments,
+
     }
     return render(request, 'posts/post_detail.html', context)
 

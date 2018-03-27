@@ -21,13 +21,12 @@ def welcome(request):
         posts_list = posts_list.filter(
             Q(title__icontains=query)|
             Q(description__icontains=query) |
-            Q(user__username__icontains=query) |
             Q(user__first_name__icontains=query) |
             Q(user__last_name__icontains=query)
         )
     else:
         query = ""
-    paginator = Paginator(posts_list, 4)  # Show 25 contacts per page
+    paginator = Paginator(posts_list, 2)  # Show 25 contacts per page
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
     posts = paginator.get_page(page)

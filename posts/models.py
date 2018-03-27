@@ -36,7 +36,7 @@ def upload_location(instance, filename):
     return "%s/%s" % (instance.id, filename)
 
 class Post(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_DEFAULT, verbose_name="Автор", default=1)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_DEFAULT, verbose_name="Автор", default=3)
     title = models.CharField(verbose_name="Заголовок", max_length=100)
     slug = models.SlugField(unique = True)
     description = models.TextField(verbose_name="Описание")

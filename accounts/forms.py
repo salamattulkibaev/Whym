@@ -20,15 +20,15 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'phone']
+        fields = ['phone', 'first_name']
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.fields['phone'].widget.attrs.update({
             'placeholder': 'Мобильный номер'
         })
-        self.fields['username'].widget.attrs.update({
-            'placeholder': 'Уникальное имя пользователья'
+        self.fields['first_name'].widget.attrs.update({
+            'placeholder': 'Имя пользователья'
         })
 
     def clean_phone(self):
@@ -37,13 +37,6 @@ class RegisterForm(forms.ModelForm):
         if qs.exists():
             raise forms.ValidationError("Вы уже зарегистрированы!")
         return phone
-
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        qs = User.objects.filter(username = username)
-        if qs.exists():
-            raise forms.ValidationError("Пользователь с таким именем уже существует")
-        return username
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -57,19 +50,18 @@ class RegisterForm(forms.ModelForm):
 class UserAdminCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('username', 'phone')
+        fields = ['phone', 'first_name']
 
     def clean_password2(self):
-        # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
+            raise forms.ValidationError("Пароли не совподают")
         return password2
 
     def save(self, commit=True):
@@ -82,18 +74,11 @@ class UserAdminCreationForm(forms.ModelForm):
 
 
 class UserAdminChangeForm(forms.ModelForm):
-    """A form for updating users. Includes all the fields on
-    the user, but replaces the password field with admin's
-    password hash display field.
-    """
     password = ReadOnlyPasswordHashField()
 
     class Meta:
         model = User
-        fields = ('username', 'phone', 'password', 'active', 'admin')
+        fields = [ 'phone', 'first_name','password', 'active', 'admin']
 
     def clean_password(self):
-        # Regardless of what the user provides, return the initial value.
-        # This is done here, rather than on the field, because the
-        # field does not have access to the initial value
         return self.initial["password"]
