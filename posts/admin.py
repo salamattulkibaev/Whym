@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Status, Post
+from .models import Category, Status, Post, Subcategory
 
 class CategoryAdmin (admin.ModelAdmin):
     search_fields = ['name']
@@ -7,6 +7,13 @@ class CategoryAdmin (admin.ModelAdmin):
 
     class Meta:
         model = Category
+
+class SubcategoryAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ('id', 'name', 'category')
+
+    class Meta:
+        model = Subcategory
 
 class StatusAdmin(admin.ModelAdmin):
     list_display = ["id", "name"]
@@ -24,5 +31,6 @@ class PostAdmin(admin.ModelAdmin):
         model = Post
 
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Subcategory, SubcategoryAdmin)
 admin.site.register(Status, StatusAdmin)
 admin.site.register(Post, PostAdmin)

@@ -37,6 +37,18 @@ class PostManager(models.Manager):
 def upload_location(instance, filename):
     return "%s/%s" % (instance.id, filename)
 
+class Subcategory(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return ' %s' % (self.name)
+
+    class Meta:
+        db_table = 'subcategory'
+        verbose_name = 'Subcategory'
+        verbose_name_plural = 'Subcategories'
+
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_DEFAULT, verbose_name="Автор", default=3)
     title = models.CharField(verbose_name="Заголовок", max_length=100)
@@ -50,7 +62,7 @@ class Post(models.Model):
         blank=True)
     height_field = models.IntegerField(verbose_name="Высота", default=0)
     width_field = models.IntegerField(verbose_name="Ширина", default=0)
-    category = models.ForeignKey(Category,on_delete = models.CASCADE , verbose_name="Категория")
+    category = models.ForeignKey(Subcategory,on_delete = models.CASCADE , verbose_name="Категория", default=17)
     city = models.ForeignKey(City,on_delete=models.SET_NULL, verbose_name="Город", null=True)
     status = models.ForeignKey(Status, default = 1, on_delete=models.CASCADE, verbose_name="Статус")
     created_at = models.DateTimeField(verbose_name="Время создания", auto_now_add=True)
@@ -98,3 +110,5 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
         instance.slug = create_slug(instance)
 
 pre_save.connect(pre_save_post_receiver, sender=Post)
+
+
