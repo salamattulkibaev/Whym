@@ -20,7 +20,7 @@
                 {% if admin == True %}
                     <i style="color: red">{{ post.status }}</i>
                 {% endif %}
-                <p>{{ post.description|safe|truncatechars:80 }}</p>
+                <p>{{ post.description|safe|truncatechars:30 }}</p>
                 {% if post.image %}
                     <img src="{{ post.image.url }}" alt="пост" width="100%">
                 {% else %}
@@ -35,7 +35,6 @@
                     <a href="?{{ page_request_var }}=1{% if query %}&q={{ query }}{% endif %}">&laquo;</a>
                     <a href="?{{ page_request_var }}={{ post_list.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">&lt;</a>
                 {% endif %}
-
                 <span class="current">
                     Страница {{ post_list.number }} из {{ post_list.paginator.num_pages }}.
                 </span>
