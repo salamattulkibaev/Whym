@@ -48,9 +48,10 @@ def login_view(request):
         print(request.user.is_authenticated())
         return redirect('/')
     return render(request, 'accounts/login.html', {"form": form, })
+
 def logout_view(request):
     logout(request)
-    return render(request, 'index.html', {})
+    return redirect('login')
 
 class LoginView(FormView):
     form_class = LoginForm

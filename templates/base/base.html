@@ -16,6 +16,16 @@
     {% endblock %}
 </head>
 <body>
+    <div id="profile-menu-wrapper">
+    </div>
+    <div id="profile-menu" >
+        <span id="profile-data">
+            <img width="50px" height="50px"  src="{% static 'media_cdn/default/example-slide-1.jpg'%}" alt="avatar">
+            <span>{{ request.user.first_name }}</span>
+        </span>
+        <a class="profile-links" href="#"><i class="fas fa-cog"></i><span>Профиль</span></a>
+        <a class="profile-links" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i><span>Выйти</span></a>
+    </div>
 	<header class="header">
 		<div class="nav">
 			<div class="logo">
@@ -38,6 +48,7 @@
 			</div>
 		</div>
 	</header>
+
 	<div class="main-wrap">
 		<aside class="left">
 			<div class="btnGoToUp" id='scroll-up'><i></i></div>
@@ -84,6 +95,7 @@
 		</footer>
 	</div>
 	<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
+    <script src="{% static "js/userTools.js" %}"></script>
     {% block jsFiles %}
 
     {% endblock %}
