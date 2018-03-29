@@ -62,7 +62,7 @@ class Post(models.Model):
         blank=True)
     height_field = models.IntegerField(verbose_name="Высота", default=0)
     width_field = models.IntegerField(verbose_name="Ширина", default=0)
-    category = models.ForeignKey(Subcategory,on_delete = models.CASCADE , verbose_name="Категория", default=17)
+    category = models.ForeignKey(Subcategory,on_delete = models.CASCADE , verbose_name="Категория", default=15)
     city = models.ForeignKey(City,on_delete=models.SET_NULL, verbose_name="Город", null=True)
     status = models.ForeignKey(Status, default = 1, on_delete=models.CASCADE, verbose_name="Статус")
     created_at = models.DateTimeField(verbose_name="Время создания", auto_now_add=True)
