@@ -19,17 +19,20 @@
             <img src="{% static "media_cdn/default/example-slide-1.jpg" %}" alt="" width="100%">
         {% endif %}
     </p>
-
-        {% for comment in comments %}
-            <dl>
-                <dt><b>{{ comment.author }}</b></dt>
-                    <dd>{{ comment.text }}</dd>
-                    <dd><small>{{ comment.created_at|timesince}}</small></dd>
-            </dl>
-            {{ comment.content_object }}
-            <hr>
-
-        {% endfor %}
+        <h4>Comments</h4>
+        <form action="." method="POST">{% csrf_token %}
+            {{ comment_form }}
+            <input type="submit" name="submit" value="Добавить">
+        </form>
+        {% if comments %}
+            {% for comment in comments %}
+                <hr>
+                <blockquote>
+                    <p>{{ comment.text }}</p>
+                    <footer><b>{{ comment.author }}</b> <small>{{ comment.created_at|timesince}}</small></footer>
+                </blockquote>
+            {% endfor %}
+        {% endif %}
 
 {% endblock %}
 {% block jsFiles %}

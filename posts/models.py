@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.utils import timezone
 from django.db.models.signals import  pre_save
 from django.utils.text import slugify
+from comments.models import Comment
+from django.contrib.contenttypes.models import ContentType
 
 class Category(models.Model):
     name = models.CharField(max_length=45)
@@ -64,9 +66,21 @@ class Post(models.Model):
 
     class Meta:
         db_table = "post"
-        verbose_name = "Post"
-        verbose_name_plural = "Posts"
+        verbose_name = "post"
+        verbose_name_plural = "posts"
         ordering = ['-updated_at']
+
+    @property
+    def comments(self):
+        instance    = self
+        qs          = Comment.objects.filter_by_instance(instance)
+        return qs
+
+    @property
+    def get_content_type(self):
+        instance = self
+        content_type = ContentType.objects.get_for_model(instance.__class__)
+        return content_type
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)
