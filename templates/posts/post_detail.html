@@ -29,7 +29,29 @@
                 <hr>
                 <blockquote>
                     <p>{{ comment.text }}</p>
-                    <footer><b>{{ comment.author }}</b> <small>{{ comment.created_at|timesince}}</small></footer>
+                    <footer>
+                        <small>
+                            <b>{{ comment.author }}</b>|
+                            {{ comment.created_at|timesince}} ago |
+                            {% if comment.children.count > 0 %}
+                                {{ comment.children.count }} Comment{% if comment.children.count > 1 %}s{% endif %} |
+|                           {% endif %}
+                            <a class="comment-reply-btn" href="#" >Ответить</a>
+                        </small>
+                    </footer>
+                    <div class="comment-reply" style="display: none;">
+                        {% for child_comment in comment.children %}
+                            <blockquote>
+                                <p>{{ child_comment.text }}</p>
+                                <footer><b>{{ child_comment.author }}</b> <small>{{ child_comment.created_at|timesince}}</small></footer>
+                            </blockquote>
+                        {% endfor %}
+                        <form action="." method="POST">{% csrf_token %}
+                            {{ comment_form }}
+                            <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                            <input type="submit" name="submit" value="Ответить">
+                        </form>
+                    </div>
                 </blockquote>
             {% endfor %}
         {% endif %}
