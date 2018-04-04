@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from posts.models import Post
 from django.views.generic import CreateView, FormView
 from .forms import RegisterForm, LoginForm
+# AuthenticationForm
 from django.http import HttpResponseRedirect, Http404 ,HttpResponse
 from django.db.models import Q
 from django.utils.http import is_safe_url
@@ -38,21 +39,6 @@ def welcome(request):
     }
     return render(request, 'index.html', context)
 
-def login_view(request):
-    form = LoginForm(request.POST or None)
-    if form.is_valid():
-        phone = form.cleaned_data.get("phone")
-        password = form.cleaned_data.get("password")
-        user = authenticate(phone = phone, password = password)
-        login(request, user)
-        print(request.user.is_authenticated())
-        return redirect('/')
-    return render(request, 'accounts/login.html', {"form": form, })
-
-def logout_view(request):
-    logout(request)
-    return redirect('login')
-
 class LoginView(FormView):
     form_class = LoginForm
     success_url = '/'
@@ -60,8 +46,8 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         request = self.request
-        next_ = request.GET.get('submit')
-        next_post = request.POST.get('submit')
+        next_ = request.GET.get('next')
+        next_post = request.POST.get('next')
         redirect_path = next_ or next_post or None
         phone = form.cleaned_data.get("phone")
         password = form.cleaned_data.get("password")
@@ -78,7 +64,11 @@ class LoginView(FormView):
                 return redirect('/')
         return super(LoginView, self).form_invalid(form)
 
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
 class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = 'accounts/register.html'
-    success_url = '/'
+    success_url = 'login'

@@ -63,7 +63,7 @@ class User(AbstractBaseUser):
     created_at = models.DateTimeField(verbose_name="Дата создания", auto_now_add=True)
 
     USERNAME_FIELD = 'phone'
-    REQUIRED_FIELDS = ['first_name'] # Email & Password are required by default.
+    REQUIRED_FIELDS = ['first_name']
     objects = UserManager()
 
     def get_full_name(self):

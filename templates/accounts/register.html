@@ -25,13 +25,11 @@
                     <li><i class="far fa-address-card fa-lg"></i></li>
                     <li><i class="fas fa-key fa-lg"></i></li>
                 </ul>
-				<form action="{% url 'register' %}" method="post" >
-                    {% csrf_token %}
+				<form action="{% url 'register' %}" method="post" >{% csrf_token %}
 					<legend>Регистрация</legend>
-{#					<input name="phone" type="tel" placeholder="Мобильный номер" required >#}
-                    {{ form.username }}
                     {{ form.phone }}
-                    {{ form.password }}
+                    {{ form.first_name }}
+                    {{ form.password1 }}
                     {{ form.password2 }}
 					<button type="submit">Продолжить</button>
 				</form>
@@ -48,22 +46,22 @@
 	</div>
 	<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
     <script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
-    <script>
-        $(document).ready(function () {
-            $("#id_phone").mask("+7(999) 999-99-99");
-            $("#id_phone").keydown(function(e){
-                if((e.which >=48 && e.which <=57)  // цифры
-                || (e.which >=96 && e.which <=105)  // num lock
-                || e.which==8 // backspace
-                || (e.which >=37 && e.which <=40) // стрелки
-               || e.which==46) // delete
-            {
-                return true;
-            } else {
-                return false;
-            }
-            });
-        });
-    </script>
+{#    <script>#}
+{#        $(document).ready(function () {#}
+{#            $("#id_phone").mask("+7(999) 999-99-99");#}
+{#            $("#id_phone").keydown(function(e){#}
+{#                if((e.which >=48 && e.which <=57)  // цифры#}
+{#                || (e.which >=96 && e.which <=105)  // num lock#}
+{#                || e.which==8 // backspace#}
+{#                || (e.which >=37 && e.which <=40) // стрелки#}
+{#               || e.which==46) // delete#}
+{#            {#}
+{#                return true;#}
+{#            } else {#}
+{#                return false;#}
+{#            }#}
+{#            });#}
+{#        });#}
+{#    </script>#}
 </body>
 </html>
