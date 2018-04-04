@@ -7,18 +7,23 @@ $(document).ready(function() {
 				lastScrollPosition = $(window).scrollTop();
 			}
 			else {
-				$('html, body').animate({ scrollTop: lastScrollPosition }, 10);
+					history.back();
 			}
 		});
 
+		$('#scroll-up').fadeIn();
+		$('#scroll-up').find('i').removeClass().addClass('fas fa-angle-left fa-2x');
 		$(window).scroll(function(){
 			if ($(window).scrollTop() != 0) {
-				$('#scroll-up').fadeIn();
 				$('#scroll-up').find('i').removeClass().addClass('fas fa-angle-up fa-2x');
-			}else if(lastScrollPosition == 0){
-				$('#scroll-up').fadeOut();
-			}else{
-				$('#scroll-up').find('i').removeClass().addClass('fas fa-angle-down fa-2x');
+			}
+			else{
+				$('#scroll-up').find('i').removeClass().addClass('fas fa-angle-left fa-2x');
 			}
 		});
+
+		$(".comment-reply-btn").click(function (event) {
+			event.preventDefault();
+			$(this).parent().parent().next(".comment-reply").fadeToggle();
+        });
 });
