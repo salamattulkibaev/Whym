@@ -27,18 +27,12 @@
 {#        <a class="profile-links" href="#"><i class="fas fa-cog"></i><span>Профиль</span></a>#}
 {#        <a class="profile-links" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i><span>Выйти</span></a>#}
 {#    </div>#}
-
+<div class="wrap">
     <header>
         <nav>
             <div class="nav-wrapper container">
                 <a href="{% url 'welcome' %}" class="brand-logo">Находка</a>
-                 <form action="{% url 'welcome' %}" method="get" class="left hide-on-med-and-down">
-                    <div class="input-field">
-                        <input id="search" type="search" name="q" placeholder="Искать" required {% block qval%} {% endblock %}>
-                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                        <i class="material-icons">close</i>
-                    </div>
-                 </form>
+
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="{% url 'addPost' %}" title="Добавить объявление">Добавить объявление</a></li>
                     <li><a href="#">Отзывы</a></li>
@@ -92,5 +86,6 @@
     {% block jsFiles %}
 
     {% endblock %}
+</div>
 </body>
 </html>

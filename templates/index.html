@@ -12,6 +12,19 @@
     {% endblock %}
 {% endif %}
 {% block content %}
+    <div id="nav-search" >
+        <nav>
+            <div class="nav-wrapper">
+                <form action="{% url 'welcome' %}" method="get" >
+                    <div class="input-field">
+                        <input id="search" type="search" name="q" placeholder="Искать" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                 </form>
+            </div>
+        </nav>
+    </div>
     <div class="posts">
         {% for post in post_list %}
             <a class="post" href="{{ post.get_absolute_url }}" style="text-decoration: none;">
